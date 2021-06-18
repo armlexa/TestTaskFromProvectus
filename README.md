@@ -66,3 +66,50 @@ public class Main {
         Submit.click();
     }
 }
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+public class Main {
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\Java\\Chromedriver\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.get("https://demoqa.com");
+
+        WebElement Forms = (new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//div[@class=\'card mt-4 top-card\'])[2]"))));
+        Forms.click();
+
+        WebElement PractiseForm = (new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class=\'element-list collapse show\']"))));
+        PractiseForm.click();
+
+        WebElement Submit = driver.findElement(By.xpath(("//button[@class=\'btn btn-primary\']")));
+        Submit.sendKeys(Keys.DOWN);
+        Submit.click();
+
+        WebElement Name = driver.findElement(By.xpath(("(//*[@class=' mr-sm-2 form-control'])[1]")));
+        WebElement LastName = driver.findElement(By.xpath(("(//*[@class=' mr-sm-2 form-control'])[2]")));
+        WebElement Mail = driver.findElement(By.xpath(("(//*[@class='custom-control-label'])[1]")));
+
+        Name.sendKeys(Keys.UP);
+
+        String ValidName = Name.getAttribute("validationMessage");
+        System.out.println(ValidName);
+
+        String ValidLastName = LastName.getAttribute("validationMessage");
+        System.out.println(ValidLastName);
+    }
+}
